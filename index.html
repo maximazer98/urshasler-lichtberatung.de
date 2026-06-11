@@ -14,7 +14,6 @@
   <meta property="og:title" content="Urs Hasler Lichtberatung – Firmenunabhängige Lichtplanung Bayern">
   <meta property="og:description" content="Firmenunabhängige Lichtberatung für Hotels, Gastronomie, Gewerbe und private Bauvorhaben in Bayern. Seit über 20 Jahren. Kostenfreies Erstgespräch.">
   <meta property="og:url" content="https://www.urshasler-lichtberatung.de/">
-  <meta property="og:image" content="https://www.urshasler-lichtberatung.de/s/img/emotionheader.jpg">
   <meta property="og:locale" content="de_DE">
 
   <!-- Strukturierte Daten (Google / GEO: KI-Suchen wie ChatGPT, Perplexity, Google SGE) -->
@@ -193,23 +192,32 @@
     .hero-img {
       position: relative;
     }
-    .hero-img img {
-      width: 100%; aspect-ratio: 4/3;
-      object-fit: cover;
-      display: block;
+    .hero-panel {
+      background: var(--black);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
     }
-    .hero-stats {
-      display: flex;
-      gap: 0;
-      border-top: 1px solid var(--rule);
-      margin-top: 1.5rem;
+    .hero-panel::before {
+      content: '';
+      position: absolute; top: 0; right: 18%;
+      width: 1px; height: 100%;
+      background: linear-gradient(180deg, rgba(200,169,110,0.5) 0%, rgba(200,169,110,0.08) 70%, transparent 100%);
+      box-shadow: -50px 0 70px 30px rgba(200,169,110,0.04), 50px 0 70px 30px rgba(200,169,110,0.04);
     }
-    .hero-stat {
-      flex: 1;
-      padding: 1.2rem 0;
-      border-right: 1px solid var(--rule);
+    .hero-panel-inner { position: relative; z-index: 1; }
+    .hero-panel-row {
+      display: flex; align-items: baseline; gap: 1.25rem;
+      padding: 1.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .hero-stat:last-child { border-right: none; }
+    .hero-panel-row:last-child { border-bottom: none; }
+    .hp-n {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: #fff; line-height: 1;
+      min-width: 80px;
+    }
+    .hp-l { font-size: 0.85rem; color: var(--light); line-height: 1.5; }
     .stat-n {
       font-family: 'Playfair Display', serif;
       font-size: 1.8rem;
@@ -242,76 +250,6 @@
     .leistung:nth-child(n+4) { border-bottom: none; }
     .leistung h3 { font-size: 1rem; margin-bottom: 0.6rem; color: var(--black); }
     .leistung p { font-size: 0.85rem; line-height: 1.65; }
-
-    /* ── GALERIE ── */
-    #galerie {}
-    .galerie-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: auto;
-      gap: 6px;
-    }
-    .gal-item {
-      overflow: hidden;
-      background: var(--bg-off);
-      cursor: pointer;
-      position: relative;
-    }
-    .gal-item.wide  { grid-column: span 2; }
-    .gal-item.tall  { grid-row:    span 2; }
-    .gal-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.5s ease;
-      aspect-ratio: 1;
-    }
-    .gal-item.wide img { aspect-ratio: 2/1; }
-    .gal-item.tall img { aspect-ratio: 1/2; }
-    .gal-item:hover img { transform: scale(1.04); }
-    .gal-overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,0); 
-      display: flex; align-items: flex-end;
-      padding: 1rem;
-      opacity: 0;
-      transition: opacity 0.3s, background 0.3s;
-    }
-    .gal-item:hover .gal-overlay { opacity: 1; background: rgba(0,0,0,0.25); }
-    .gal-cat {
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #fff;
-      background: rgba(0,0,0,0.45);
-      padding: 0.25rem 0.6rem;
-      border-radius: 1px;
-    }
-
-    /* lightbox */
-    .lightbox {
-      display: none; position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.92);
-      align-items: center; justify-content: center;
-    }
-    .lightbox.open { display: flex; }
-    .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
-    .lightbox-close {
-      position: absolute; top: 1.5rem; right: 2rem;
-      font-size: 2rem; color: #fff; cursor: pointer; line-height: 1;
-      background: none; border: none;
-    }
-    .lightbox-prev, .lightbox-next {
-      position: absolute; top: 50%; transform: translateY(-50%);
-      background: none; border: none;
-      color: rgba(255,255,255,0.6); font-size: 2.5rem; cursor: pointer;
-      padding: 1rem;
-      transition: color 0.2s;
-    }
-    .lightbox-prev:hover, .lightbox-next:hover { color: #fff; }
-    .lightbox-prev { left: 1rem; }
-    .lightbox-next { right: 1rem; }
 
     /* ── PROJEKTE ── */
     #projekte { background: var(--bg-off); }
@@ -349,21 +287,22 @@
       grid-template-columns: 1fr 1fr;
       gap: 0;
     }
-    .pani-images {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr;
-      gap: 4px;
+    .pani-visual {
+      background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      min-height: 340px;
     }
-    .pani-images img {
-      width: 100%; aspect-ratio: 1;
-      object-fit: cover;
-      display: block;
+    .pani-visual::before {
+      content: '';
+      position: absolute; top: 0; left: 50%;
+      width: 1px; height: 100%;
+      background: linear-gradient(180deg, rgba(200,169,110,0.5) 0%, rgba(200,169,110,0.08) 70%, transparent 100%);
+      box-shadow: -70px 0 90px 35px rgba(200,169,110,0.05), 70px 0 90px 35px rgba(200,169,110,0.05);
     }
-    .pani-images img:first-child {
-      grid-column: span 2;
-      aspect-ratio: 2/1;
-    }
+    .pani-visual-inner { position: relative; z-index: 1; text-align: center; }
+    .pani-visual-big { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; line-height: 1.1; }
+    .pani-visual-sub { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-top: 0.6rem; }
     .pani-text {
       padding: 4rem;
       display: flex; flex-direction: column; justify-content: center;
@@ -419,11 +358,8 @@
     /* ── KONTAKT ── */
     #kontakt { background: var(--bg-off); }
     .kontakt-inner {
-      display: grid; grid-template-columns: 260px 1fr 1.4fr; gap: 3.5rem; align-items: start;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
     }
-    .kontakt-foto img { width: 100%; display: block; filter: saturate(0.9) contrast(1.02); }
-    .kontakt-foto .kontakt-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--black); margin-top: 0.75rem; }
-    .kontakt-foto .kontakt-role { font-size: 0.75rem; color: var(--light); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem; }
     .kontakt-info .label { display: block; margin-bottom: 1rem; }
     .kontakt-info h2 { margin-bottom: 1rem; }
     .kontakt-info > p { margin-bottom: 2rem; font-size: 0.9rem; }
@@ -472,10 +408,6 @@
       .nav-toggle { display: block; }
       #hero, .leistungen-grid { grid-template-columns: 1fr; }
       #hero { gap: 2.5rem; }
-      .galerie-grid { grid-template-columns: repeat(2,1fr); }
-      .gal-item.wide { grid-column: span 2; }
-      .gal-item.tall { grid-row: span 1; }
-      .gal-item.tall img { aspect-ratio: 1; }
       .leistungen-grid .leistung:nth-child(3n) { border-right: 1px solid var(--rule); }
       .leistungen-grid .leistung:nth-child(2n) { border-right: none; }
       #pani { grid-template-columns: 1fr; }
@@ -488,10 +420,7 @@
     @media(max-width: 600px) {
       section { padding: 64px 0; }
       .container { padding: 0 1.25rem; }
-      .galerie-grid { grid-template-columns: 1fr 1fr; gap: 3px; }
       .form-row { grid-template-columns: 1fr; }
-      .hero-stats { flex-direction: column; gap: 0; }
-      .hero-stat { border-right: none; border-bottom: 1px solid var(--rule); }
     }
     @media(prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -504,7 +433,6 @@
     <a href="#hero" class="nav-logo">Urs Hasler Lichtberatung</a>
     <ul class="nav-links">
       <li><a href="#leistungen">Leistungen</a></li>
-      <li><a href="#galerie">Galerie</a></li>
       <li><a href="#projekte">Projekte</a></li>
       <li><a href="#pani">Pani</a></li>
       <li><a href="#ueber">Über uns</a></li>
@@ -517,7 +445,6 @@
 </nav>
 <div class="nav-mobile" id="mobile-nav">
   <a href="#leistungen" onclick="closeNav()">Leistungen</a>
-  <a href="#galerie"    onclick="closeNav()">Galerie</a>
   <a href="#projekte"   onclick="closeNav()">Projekte</a>
   <a href="#pani"       onclick="closeNav()">Pani-Vermietung</a>
   <a href="#ueber"      onclick="closeNav()">Über uns</a>
@@ -533,24 +460,14 @@
       <p>Wir beraten unabhängig von Herstellern — für das richtige Licht in Ihrem Projekt. Wirtschaftlich, energieeffizient und gestalterisch präzise.</p>
       <div class="hero-actions">
         <a href="#kontakt" class="btn btn-dark">Beratungsgespräch anfragen</a>
-        <a href="#galerie" class="btn btn-outline">Arbeiten ansehen</a>
+        <a href="#projekte" class="btn btn-outline">Projekte ansehen</a>
       </div>
     </div>
-    <div class="hero-img">
-      <img src="https://www.urshasler-lichtberatung.de/s/img/emotionheader.jpg" alt="Lichtberatung Urs Hasler">
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="stat-n">20+</div>
-          <div class="stat-l">Jahre Erfahrung</div>
-        </div>
-        <div class="hero-stat" style="padding-left:1.5rem">
-          <div class="stat-n">70+</div>
-          <div class="stat-l">Projekte</div>
-        </div>
-        <div class="hero-stat" style="padding-left:1.5rem">
-          <div class="stat-n">100%</div>
-          <div class="stat-l">Unabhängig</div>
-        </div>
+    <div class="hero-panel">
+      <div class="hero-panel-inner">
+        <div class="hero-panel-row"><span class="hp-n">20+</span><span class="hp-l">Jahre unabhängige Lichtberatung</span></div>
+        <div class="hero-panel-row"><span class="hp-n">70+</span><span class="hp-l">Realisierte Projekte in ganz Bayern</span></div>
+        <div class="hero-panel-row"><span class="hp-n">100%</span><span class="hp-l">Herstellerunabhängig — ohne Verkaufsdruck</span></div>
       </div>
     </div>
   </section>
@@ -594,98 +511,6 @@
     </div>
   </div>
 </section>
-
-<!-- GALERIE -->
-<section id="galerie">
-  <div class="container">
-    <div class="sh">
-      <span class="label">Bildergalerie</span>
-      <h2>Realisierte Projekte</h2>
-      <p>Eine Auswahl aus über 70 realisierten Lichtprojekten — klicken zum Vergrößern.</p>
-    </div>
-
-    <div class="galerie-grid">
-      <!-- Effektbeleuchtung / Event – größer herausstellen -->
-      <div class="gal-item wide" onclick="openLightbox(0)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684500.jpg" alt="Eventbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Eventbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(1)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684501.jpg" alt="Eventbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Eventbeleuchtung</span></div>
-      </div>
-      <div class="gal-item tall" onclick="openLightbox(2)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684430.jpg" alt="Taufkirchen Palais Burghausen">
-        <div class="gal-overlay"><span class="gal-cat">Außenbeleuchtung</span></div>
-      </div>
-      <!-- Außenbeleuchtung -->
-      <div class="gal-item" onclick="openLightbox(3)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684421.jpg" alt="Außenbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Außenbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(4)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684422.jpg" alt="Außenbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Außenbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(5)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684423.jpg" alt="Außenbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Außenbeleuchtung</span></div>
-      </div>
-      <!-- Weihnachten -->
-      <div class="gal-item wide" onclick="openLightbox(6)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684554.jpg" alt="Weihnachtsbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Weihnachtsbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(7)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684555.jpg" alt="Weihnachtsbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Weihnachtsbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(8)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684556.jpg" alt="Weihnachtsbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Weihnachtsbeleuchtung</span></div>
-      </div>
-      <!-- Effektbeleuchtung -->
-      <div class="gal-item" onclick="openLightbox(9)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684389.jpg" alt="Effektbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Effektbeleuchtung</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(10)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684390.jpg" alt="Effektbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Effektbeleuchtung</span></div>
-      </div>
-      <!-- Shop & Gastro -->
-      <div class="gal-item wide" onclick="openLightbox(11)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685423.jpg" alt="Shopbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Shop & Gastro</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(12)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685424.jpg" alt="Gastronomiebeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Shop & Gastro</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(13)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685425.jpg" alt="Shopbeleuchtung">
-        <div class="gal-overlay"><span class="gal-cat">Shop & Gastro</span></div>
-      </div>
-      <!-- Privatbereich -->
-      <div class="gal-item" onclick="openLightbox(14)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684323.JPG" alt="Privatbereich">
-        <div class="gal-overlay"><span class="gal-cat">Privatbereich</span></div>
-      </div>
-      <div class="gal-item" onclick="openLightbox(15)">
-        <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684324.JPG" alt="Privatbereich">
-        <div class="gal-overlay"><span class="gal-cat">Privatbereich</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <button class="lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
-  <img id="lb-img" src="" alt="">
-  <button class="lightbox-next" onclick="lbNav(1)">&#8250;</button>
-</div>
 
 <!-- PROJEKTE -->
 <section id="projekte">
@@ -770,10 +595,11 @@
 
 <!-- PANI -->
 <section id="pani" style="padding:0">
-  <div class="pani-images">
-    <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684508.jpg" alt="Pani Projektor Event">
-    <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684510.jpg" alt="Fassadenmapping">
-    <img src="https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684512.jpg" alt="Lichtinstallation">
+  <div class="pani-visual">
+    <div class="pani-visual-inner">
+      <div class="pani-visual-big">Pani BP4</div>
+      <div class="pani-visual-sub">Hochleistungsprojektor</div>
+    </div>
   </div>
   <div class="pani-text">
     <span class="label">Pani-Hochleistungsprojektoren</span>
@@ -821,11 +647,6 @@
 <section id="kontakt">
   <div class="container">
     <div class="kontakt-inner">
-      <div class="kontakt-foto">
-        <img src="data:image/jpeg;base64,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" alt="Urs Hasler">
-        <div class="kontakt-name">Urs Hasler</div>
-        <div class="kontakt-role">Lichtberater</div>
-      </div>
       <div class="kontakt-info">
         <span class="label">Kontakt</span>
         <h2>Sprechen wir über Ihr Projekt</h2>
@@ -1014,31 +835,6 @@
     if (!open) el.classList.add('open');
   }
 
-  /* Lightbox */
-  const lbImgs = [
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684500.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684501.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684430.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684421.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684422.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684423.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684554.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684555.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684556.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684389.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684390.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685423.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685424.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480685425.jpg',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684323.JPG',
-    'https://www.urshasler-lichtberatung.de/s/cc_images/cache_2480684324.JPG',
-  ];
-  let lbIdx = 0;
-  function openLightbox(i) { lbIdx = i; document.getElementById('lb-img').src = lbImgs[i]; document.getElementById('lightbox').classList.add('open'); }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
-  function closeLightboxOnBg(e) { if (e.target === document.getElementById('lightbox')) closeLightbox(); }
-  function lbNav(dir) { lbIdx = (lbIdx + dir + lbImgs.length) % lbImgs.length; document.getElementById('lb-img').src = lbImgs[lbIdx]; }
-  document.addEventListener('keydown', e => { if (!document.getElementById('lightbox').classList.contains('open')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowRight') lbNav(1); if (e.key === 'ArrowLeft') lbNav(-1); });
 </script>
 </body>
 </html>

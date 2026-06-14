@@ -358,9 +358,9 @@
     /* ── KONTAKT ── */
     #kontakt { background: var(--bg-off); }
     .kontakt-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      max-width: 560px;
     }
-    .kontakt-info .label { display: block; margin-bottom: 1rem; }
+        .kontakt-info .label { display: block; margin-bottom: 1rem; }
     .kontakt-info h2 { margin-bottom: 1rem; }
     .kontakt-info > p { margin-bottom: 2rem; font-size: 0.9rem; }
     .k-detail { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; font-size: 0.88rem; color: var(--dark); }
@@ -368,17 +368,6 @@
     .k-detail a:hover { color: var(--accent); }
     .k-lbl { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--light); margin-bottom: 0.2rem; }
 
-    .form-group { margin-bottom: 1.1rem; }
-    .form-group label { display: block; font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 0.45rem; }
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%; background: var(--bg); border: 1px solid var(--rule);
-      color: var(--dark); font-family: 'Inter', sans-serif; font-size: 0.9rem;
-      padding: 0.7rem 0.9rem; outline: none; transition: border-color 0.2s; appearance: none; border-radius: 0;
-    }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--dark); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--light); }
-    .form-group textarea { resize: vertical; min-height: 120px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 
     /* ── FOOTER ── */
     footer { padding: 2.5rem 0; border-top: 1px solid var(--rule); }
@@ -406,21 +395,23 @@
     @media(max-width: 960px) {
       .nav-links { display: none; }
       .nav-toggle { display: block; }
-      #hero, .leistungen-grid { grid-template-columns: 1fr; }
+      #hero { grid-template-columns: 1fr; }
+      #pani { grid-template-columns: 1fr; }
+      .leistungen-grid { grid-template-columns: 1fr 1fr; }
+      .ueber-inner { grid-template-columns: 1fr !important; gap: 2rem !important; }
+      .events-inner { grid-template-columns: 1fr; }
       #hero { gap: 2.5rem; }
       .leistungen-grid .leistung:nth-child(3n) { border-right: 1px solid var(--rule); }
       .leistungen-grid .leistung:nth-child(2n) { border-right: none; }
       #pani { grid-template-columns: 1fr; }
       .pani-text { padding: 2.5rem 2rem; }
       #ueber { grid-template-columns: 1fr; gap: 3rem; }
-      .kontakt-inner { grid-template-columns: 1fr; gap: 2rem; }
       .projekt { grid-template-columns: 1fr auto; }
       .projekt-cat { display: none; }
     }
     @media(max-width: 600px) {
       section { padding: 64px 0; }
       .container { padding: 0 1.25rem; }
-      .form-row { grid-template-columns: 1fr; }
     }
     @media(prefers-reduced-motion: reduce) { * { transition: none !important; } }
   </style>
@@ -669,40 +660,6 @@
             <span>Am Burgfrieden 1 · 83512 Wasserburg am Inn</span>
           </div>
         </div>
-      </div>
-      <div>
-        <form action="mailto:info@urshasler-lichtberatung.de" method="post" enctype="text/plain">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="vorname">Vorname</label>
-              <input type="text" id="vorname" name="vorname" placeholder="Max">
-            </div>
-            <div class="form-group">
-              <label for="nachname">Nachname</label>
-              <input type="text" id="nachname" name="nachname" placeholder="Mustermann">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email">E-Mail</label>
-            <input type="email" id="email" name="email" placeholder="max@beispiel.de">
-          </div>
-          <div class="form-group">
-            <label for="thema">Betreff</label>
-            <select id="thema" name="thema">
-              <option value="">Bitte wählen …</option>
-              <option>Lichtplanung / Beratung</option>
-              <option>LED-Umrüstung</option>
-              <option>Pani-Projektor Vermietung</option>
-              <option>Eventmanagement</option>
-              <option>Sonstiges</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="nachricht">Nachricht</label>
-            <textarea id="nachricht" name="nachricht" placeholder="Beschreiben Sie kurz Ihr Vorhaben …"></textarea>
-          </div>
-          <button type="submit" class="btn btn-dark" style="width:100%;text-align:center;">Nachricht senden</button>
-        </form>
       </div>
     </div>
   </div>
